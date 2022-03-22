@@ -7,6 +7,10 @@
 
 #include <stdio.h>
 
+typedef struct{
+	int id;
+	float nPaginas;
+} Libro;
 
 int main (void){
 
