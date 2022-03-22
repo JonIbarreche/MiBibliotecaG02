@@ -6,6 +6,9 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
+
+#include "clases/usuario.h"
 
 typedef struct{
 	int id;
