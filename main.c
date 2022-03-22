@@ -13,6 +13,7 @@
 typedef struct{
 	int id;
 	float nPaginas;
+	int p;
 } Libro;
 
 int main (void){
