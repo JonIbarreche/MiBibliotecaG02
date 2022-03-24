@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include "Menus/menu.h"
-#include "socio.h"
-#include "usuario.h"
+#include "BD/sqlite3.h"
+#include "Clases/socio.h"
+#include "Clases/usuario.h"
 
 int main(void)
 {
