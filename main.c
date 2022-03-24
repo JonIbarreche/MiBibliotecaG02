@@ -4,7 +4,6 @@
 #include "socio.h"
 #include "usuario.h"
 
-
 int main(void)
 {
 /*
