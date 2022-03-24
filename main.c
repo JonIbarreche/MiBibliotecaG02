@@ -6,7 +6,6 @@
 
 int main(void)
 {
-/*
 	Usuario usuarios [100];
 
 		int posicion = 0;
@@ -69,13 +68,13 @@ int main(void)
 
 									break;
 
-								case 7:
+			/*					case 7:
 			 						printf("\n¿Desea volver a la ventana anterior?\n [s/n]");
 									fflush(stdout);
 									scanf("%s", &opcion1);
 									flag2 = 1;
 									break;
-
+			 */
 								}
 							}
 
@@ -89,13 +88,13 @@ int main(void)
 
 							break;
 
-						case 4:
+	/*					case 4:
 							printf("\n¿Desea volver a la ventana anterior?\n 1. SI\n 2. NO\n");
 							fflush(stdout);
 							scanf("%s", &opcion0);
 							flag2 = 1;
 							break;
-
+	*/
 						default:
 							printf("\nCaracter introducido erroneo");
 							break;
@@ -125,6 +124,4 @@ int main(void)
 
 		}
 		return 0;
-*/
 }
-
