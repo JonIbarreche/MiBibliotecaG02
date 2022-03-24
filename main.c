@@ -4,12 +4,16 @@
 #include "BD/sqlite3.h"
 #include "Clases/socio.h"
 #include "Clases/usuario.h"
+#include "Clases/biblioteca.h"
 
 int main(void)
 {
 	Usuario usuarios [100];
+	Socio socios[100];
+	Biblioteca bibliotecas[100];
 
 		int posicion = 0;
+		int tam;
 		int acceso;
 
 		int flag = 0;
@@ -46,15 +50,15 @@ int main(void)
 								switch (opcion2){
 
 								case 1:
-
+									//visualizarBiblioteca(bibliotecas, tam);
 									break;
 
 								case 2:
-
+									//visualizarUsuario(usuarios, tam);
 									break;
 
 								case 3:
-
+									//visualizarSocio(socios, tam);
 									break;
 
 								case 4:

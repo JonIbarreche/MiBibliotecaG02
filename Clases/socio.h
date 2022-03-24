@@ -11,7 +11,7 @@ typedef struct{
 }Socio;
 
 //INICIO SESION//
-void imprimirSocio (Socio* socios, int tamanyo);
+void visualizarSocio (Socio* socios, int tamanyo);
 int comprobarSocio (char nom [20], int dni[9],  int cp [10], Socio* socios, int tamanyo);
 
 //REGISTRARSE//

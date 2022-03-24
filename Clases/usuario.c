@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 
-void imprimirUsuario (Usuario* usuarios, int tamanyo){
+void visualizarUsuario (Usuario* usuarios, int tamanyo){
 
 	for (int i = 0; i < tamanyo ; i++){
 		printf("Nombre: %s", (usuarios+ i)->nombre);

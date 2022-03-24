@@ -4,7 +4,7 @@
 #include <stdlib.h>
 
 
-void imprimirSocio (Socio* socios, int tamanyo){
+void visualizarSocio (Socio* socios, int tamanyo){
 
 	for (int i = 0; i < tamanyo ; i++){
 		printf("Nombre: %s", (socios+ i)->nombre);
@@ -14,7 +14,6 @@ void imprimirSocio (Socio* socios, int tamanyo){
 		printf("Residencia: %s", (socios+ i)->residencia);
 		printf("Codigo Postal: %i", (socios+ i)->codigoPostal);
 	}
-
 }
 
 int comprobarSocio (char nom[20], int dni [9], int cp [10], Socio* socios, int tamanyo){

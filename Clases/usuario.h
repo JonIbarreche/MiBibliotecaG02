@@ -9,7 +9,7 @@ typedef struct{
 }Usuario;
 
 //INICIO SESION//
-void imprimirUsuario (Usuario*usuarios, int tamanyo);
+void visualizarUsuario (Usuario*usuarios, int tamanyo);
 int comprobarUsuario (char name [10], char pass [10], Usuario* usuarios, int tamanyo);
 int inicioSesion(Usuario* usuarios);
 

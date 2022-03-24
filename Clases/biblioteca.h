@@ -20,4 +20,6 @@ typedef struct{
 //	Libro libro;
 }Biblioteca;
 
+void visualizarBiblioteca (Biblioteca* bibliotecas, int tamanyo);
+
 #endif /* BIBLIOTECA_H_ */
