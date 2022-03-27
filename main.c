@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <string.h>
-#include "Menus/menu.h"
+#include "Menu/menu.h"
 #include "BD/sqlite3.h"
-#include "Clases/socio.h"
-#include "Clases/usuario.h"
-#include "Clases/biblioteca.h"
+#include "Jerarquia/Socio/socio.h"
+#include "Jerarquia/Usuario/usuario.h"
+#include "Jerarquia/Biblioteca/biblioteca.h"
 
 int main(void)
 {
@@ -74,7 +74,7 @@ int main(void)
 									break;
 
 			/*					case 7:
-			 						printf("\n¿Desea volver a la ventana anterior?\n [s/n]");
+			 						printf("\nï¿½Desea volver a la ventana anterior?\n [s/n]");
 									fflush(stdout);
 									scanf("%s", &opcion1);
 									flag2 = 1;
@@ -94,7 +94,7 @@ int main(void)
 							break;
 
 	/*					case 4:
-							printf("\n¿Desea volver a la ventana anterior?\n 1. SI\n 2. NO\n");
+							printf("\nï¿½Desea volver a la ventana anterior?\n 1. SI\n 2. NO\n");
 							fflush(stdout);
 							scanf("%s", &opcion0);
 							flag2 = 1;
