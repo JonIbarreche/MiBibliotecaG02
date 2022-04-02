@@ -2,6 +2,7 @@
 #define LIBRO_H_
 
 typedef struct{
+	int idLibro;
 	char isbn[13];
 	char titulo[20];
 	char autor[20];

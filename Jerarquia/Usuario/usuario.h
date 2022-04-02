@@ -2,6 +2,7 @@
 #define USUARIO_H_
 
 typedef struct{
+	int idUsuario;
 	char nombre[20];
 	char apellido[20];
 	char nomUsuario[20];

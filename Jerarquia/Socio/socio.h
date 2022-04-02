@@ -4,7 +4,7 @@
 typedef struct{
 	char nombre[20];
 	char apellido[20];
-	int DNI[9];
+	int DNI[8];
 	char correo[20];
 	char residencia[30];
 	int codigoPostal[5];
@@ -12,7 +12,7 @@ typedef struct{
 
 //INICIO SESION//
 void visualizarSocio (Socio* socios, int tamanyo);
-int comprobarSocio (char nom [20], int dni[9],  int cp [10], Socio* socios, int tamanyo);
+int comprobarSocio (char nom [20], int dni[8],  int cp [5], Socio* socios, int tamanyo);
 
 //REGISTRARSE//
 void registrarSocio (Socio* socios, int posicion);

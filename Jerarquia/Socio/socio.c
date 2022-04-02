@@ -16,7 +16,7 @@ void visualizarSocio (Socio* socios, int tamanyo){
 	}
 }
 
-int comprobarSocio (char nom[20], int dni [9], int cp [10], Socio* socios, int tamanyo){
+int comprobarSocio (char nom[20], int dni [8], int cp [5], Socio* socios, int tamanyo){
 
 
 	int cont = 0;
@@ -40,7 +40,7 @@ void registrarSocio (Socio* socios, int posicion){
 	char str[10];
 	char nombre[10];
 	char apellido[20];
-	int dni[9];
+	int dni[8];
 	char correo[20];
 	char residencia[30];
 	int codigoPostal[5];
@@ -95,7 +95,7 @@ void registrarSocio (Socio* socios, int posicion){
 		do {
 			printf("Los datos que ha introducido son los siguientes: \n");
 			printf("Nombre: %s\n, Apellido: %s\n, DNI: %i\n, Correo: %s\n, Residencia: %s\n, Codigo Postal: %i\n", nombre, apellido, dni, correo, residencia, codigoPostal);
-			printf("¿Desea seguir adelante? (s/n)");
+			printf("ï¿½Desea seguir adelante? (s/n)");
 			fflush(stdin);
 			scanf("%c", &salir);
 		} while ((salir < 's') || (salir > 'S'));

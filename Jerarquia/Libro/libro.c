@@ -5,7 +5,7 @@
 
 void visualizarLibros(Libro* libros, int tamanyo){
 	for (int i = 0; i < tamanyo ; i++){
-        printf("================================")
+        printf("================================");
         printf("----------- Libro %i -----------", i);
 		printf("ISBN: %s", (libros+ i)->isbn);
 		printf("Título: %s", (libros+ i)->titulo);
