@@ -28,6 +28,7 @@ int main(void)
 
 				if (acceso == 1){
 					//flag = 1;
+					//ataca chencho
 
 					printf("==============================================================\n");
 					printf("-----------------CUENTA INICIADA CON EXITO--------------------\n");
