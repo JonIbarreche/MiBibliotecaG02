@@ -7,6 +7,7 @@ typedef struct{
 	char apellido[20];
 	char nomUsuario[20];
 	char contrasenya[20];
+	// lista de reservas
 }Usuario;
 
 //INICIO SESION//

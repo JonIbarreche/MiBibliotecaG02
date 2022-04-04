@@ -8,6 +8,7 @@ typedef struct{
 	char correo[20];
 	char residencia[30];
 	int codigoPostal[5];
+	// lista de reservas
 }Socio;
 
 //INICIO SESION//

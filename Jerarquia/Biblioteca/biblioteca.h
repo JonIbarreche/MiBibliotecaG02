@@ -11,12 +11,12 @@
 
 typedef struct{
 	int idBiblioteca;
-	char nombre;
-	int aforo;
-	char estado;
-	char genero;
-	char instalacion;
-	char barrio;
+	char nombre[10];
+	int aforo[3];
+	char estado[20];
+	char genero[15];
+	char instalacion[20];
+	char barrio[15];
 //	Libro libro;
 }Biblioteca;
 
