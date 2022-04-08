@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "sqlite3.h"
 #include "BD.h"
 #include "../Jerarquia/Usuario/usuario.h"
@@ -326,6 +327,7 @@ int insertReserva(sqlite3 *db, int idReserva, char concepto[], char fechaInicio[
 	return SQLITE_OK;
 }
 
+/*
 //Getters
 Usuario getUsuario(int idUsuario){
 	return 0;
@@ -346,7 +348,7 @@ Biblioteca getBiblioteca(int idBiblioteca){
 Reserva getReserva(int idReserva){
 	return 0;
 }
-
+*/
 
 //Prints
 int imprimirUsuarios(sqlite3 *db){
