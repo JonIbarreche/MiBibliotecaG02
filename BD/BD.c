@@ -3,11 +3,11 @@
 #include <string.h>
 #include "sqlite3.h"
 #include "BD.h"
-#include "Jerarquia/Usuario/usuario.h"
-#include "Jerarquia/Socio/socio.h"
-#include "Jerarquia/Reserva/reserva.h"
-#include "Jerarquia/Libro/libro.h"
-#include "Jerarquia/Biblioteca/biblioteca.h"
+#include "../Jerarquia/Usuario/usuario.h"
+#include "../Jerarquia/Socio/socio.h"
+#include "../Jerarquia/Reserva/reserva.h"
+#include "../Jerarquia/Libro/libro.h"
+#include "../Jerarquia/Biblioteca/biblioteca.h"
 
 //Inserts
 int insertUsuario(sqlite3 *db, int idUsuario, char nombre[], char apellido[], char nomUsuario[], char contrasenya[]){
@@ -418,7 +418,7 @@ int imprimirSocios(sqlite3 *db){
 
 	char nombre[20];
 	char apellido[20];
-	int DNI[8];
+	int dni[8];
 	char correo[20];
 	char residencia[30];
 	char codigoPostal[5];
@@ -594,7 +594,7 @@ int imprimirReserva(sqlite3 *db){
 	do {
 		result = sqlite3_step(stmt) ;
 		if (result == SQLITE_ROW) {
-			idUsuario = sqlite3_column_int(stmt, 0);
+			idReserva = sqlite3_column_int(stmt, 0);
 			strcpy(nombre, (char *) sqlite3_column_text(stmt, 1));
 			strcpy(concepto, (char *) sqlite3_column_text(stmt, 2));
 			strcpy(fechaInicio, (char *) sqlite3_column_text(stmt, 3));
@@ -655,7 +655,7 @@ int deleteUsuario(sqlite3 *db, char nomUsuario[]) {
 	return SQLITE_OK;
 }
 
-int deleteSocios(sqlite3 *db, itn dni) {
+int deleteSocios(sqlite3 *db, int dni) {
 	sqlite3_stmt *stmt;
 
 	char sql[] = "delete from socio where no mSocio = '?' ";

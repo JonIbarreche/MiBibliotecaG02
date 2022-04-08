@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
 #include "../Jerarquia/Usuario/usuario.h"
 
 int gestionBibliotecasBilbao(void)
@@ -63,7 +65,9 @@ int gestionBibliotecas(void)
 	return op;
 }
 
-struct Usuario *inicioSesion(Usuario* usuario)
+/*
+ *
+ Usuario *inicioSesion(Usuario* usuario)
 {
 	char user[15];
 	char contrasenya[15];
@@ -80,14 +84,15 @@ struct Usuario *inicioSesion(Usuario* usuario)
 	fflush(stdin);
 	fgets(contrasenya, 15, stdin);
 
-	if(user == usuario.nomUsuario && contrasenya == usuario.contrasenya)
+	if(user == usuario->nomUsuario && contrasenya == usuario->contrasenya)
 		return usuario;
 	else
-		return null;
+		return NULL;
 }
-
+*/
 struct Usuario *registroUsuario(void)
 {
+	int idUsuario[2];
 	char nombre[15];
 	char apellido[15];
 	char usuario[15];
@@ -96,24 +101,33 @@ struct Usuario *registroUsuario(void)
 	printf("\tREGISTRO DE USUARIO\n");
 	printf("\t================================\n\n");
 	printf("Introduzca los siguientes campos\n\n");
+
+	printf("ID:\n");
+	fflush(stdout);
+	fflush(stdin);
+	fgets(idUsuario, 2, stdin);
+
 	printf("Nombre:\n");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(nombre, 15, stdin);
+
 	printf("Apellido:\n");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(apellido, 15, stdin);
+
 	printf("Usuario:\n");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(usuario, 15, stdin);
+
 	printf("Contrasenya:\n");
 	fflush(stdout);
 	fflush(stdin);
 	fgets(contrasenya, 15, stdin);
 
-	struct Usuario user = {nombre, apellido, usuario, contrasenya};
+	Usuario user = {nombre, apellido, usuario, contrasenya};
 
-	return user;
+	return &user;
 }

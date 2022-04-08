@@ -1,6 +1,8 @@
 #ifndef RESERVA_H_
 #define RESERVA_H_
 
+#include "../../Jerarquia/Usuario/usuario.h"
+#include "../../Jerarquia/Libro/libro.h"
 //typedef struct{
 //	char fechaInicio[8];
 //    char fechaFinal[8];
@@ -17,6 +19,7 @@ typedef struct{
 }Reserva;
 
 void visualizarReservas(Reserva* reservas, int tamanyo);
-void visualizarReserva(Reserva* reserva);
+
+void visualizarReserva2(Reserva* reserva);
 
 #endif
