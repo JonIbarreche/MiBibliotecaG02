@@ -4,10 +4,10 @@
 typedef struct{
 	char nombre[20];
 	char apellido[20];
-	int DNI[8];
+	int DNI;
 	char correo[20];
 	char residencia[30];
-	int codigoPostal[5];
+	int codigoPostal;
 	// lista de reservas
 }Socio;
 

@@ -11,8 +11,8 @@
 
 typedef struct{
 	int idBiblioteca;
-	char nombre[10];
-	int aforo[3];
+	char nombre[40];
+	int aforo;
 	char estado[20];
 	char genero[15];
 	char instalacion[20];

@@ -7,7 +7,7 @@ typedef struct{
 	char titulo[20];
 	char autor[20];
 	char genero[20];
-	int paginas[4];
+	int paginas;
 }Libro;
 
 void visualizarLibros(Libro* libros, int tamanyo);
