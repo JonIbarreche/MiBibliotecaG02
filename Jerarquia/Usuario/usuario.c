@@ -61,3 +61,13 @@ void eliminarTodosUsuarios(sqlite3 *db, int result)
 	}
 }
 
+void visualizarUsuario (Usuario* usuarios, int tamanyo){
+
+	for (int i = 0; i < tamanyo ; i++){
+		printf("Nombre: %s", (usuarios+ i)->nombre);
+		printf("Apellido: %s", (usuarios+ i)->apellido);
+		printf("Usuario: %s", (usuarios+ i)->nomUsuario);
+		printf("Contrasenya: %s", (usuarios+ i)->contrasenya);
+	}
+}
+

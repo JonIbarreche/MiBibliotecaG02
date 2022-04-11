@@ -18,8 +18,4 @@ void imprimirUsuario(sqlite3 *db, Usuario usuario);
 void eliminarUsuario(sqlite3 *db, int result, char nom);
 void eliminarTodosUsuarios(sqlite3 *db, int result);
 
-int comprobarUsuario (char usu [10], char contr [10], Usuario* usuarios, int tamanyo);
-int inicioSesion(Usuario* usuarios);
-void registrarUsuario (Usuario* usuarios, int posicion);
-
 #endif /* USUARIO_H_ */
