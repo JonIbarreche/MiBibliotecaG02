@@ -2,117 +2,62 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
+#include "../../BD/BD.h"
+#include "../../BD/sqlite3.h"
 
-void visualizarUsuario (Usuario* usuarios, int tamanyo){
-
-	for (int i = 0; i < tamanyo ; i++){
-		printf("Nombre: %s", (usuarios+ i)->nombre);
-		printf("Apellido: %s", (usuarios+ i)->apellido);
-		printf("Usuario: %s", (usuarios+ i)->nomUsuario);
-		printf("Contrasenya: %s", (usuarios+ i)->contrasenya);
+void anadirUsuario(sqlite3 *db, int result, Usuario usuario)
+{
+	result = insertUsuario(db, usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.nomUsuario, usuario.contrasenya);
+	if(result != SQLITE_OK) {
+		printf("Error al insertar el usuario.\n");
+		printf("%s%n", sqlite3_errmsg(db));
 	}
 }
 
-int comprobarUsuario (char usu [10], char contr [10], Usuario* usuarios, int tamanyo){
-
-	int cont = 0;
-	for (int i = 0; i < tamanyo; i++){
-
-		if((strncmp((usuarios+ i)->nomUsuario, usu)) == 0){
-			if ((strcmp((usuarios + i)->contrasenya, contr)) == 0){
-				cont = 1;
-			}
-		}
+void modificarUsuario(sqlite3 *db, int result, int id, Usuario usuario)
+{
+	result = deleteUsuario(db, id);
+	if(result != SQLITE_OK)
+	{
+		printf("Error eliminando el usuario.\n");
+		printf("%s\n", sqlite3_errmsg(db));
 	}
-	return cont;
-}
-
-int inicioSesion(Usuario* usuarios) {
-
-	int cont = 0;
-
-	char str[10];
-	char nom[10];
-	char contr[10];
-
-	printf("\n\tINICIO DE SESION\n");
-	printf("==================================================\n");
-
-	printf("Usuario:  ");
-	fflush(stdout);
-	fgets(str, 10, stdin);
-	sscanf(str, "%s", &nom);
-
-	printf("Contrasenya:  ");
-	fflush(stdout);
-	fgets(str, 10, stdin);
-	sscanf(str, "%s", &contr);
-
-	cont = comprobarUsuario(nom, contr, usuarios, 100);
-
-	return cont;
-}
-
-void registrarUsuario (Usuario* usuarios, int posicion){
-
-	char str[10];
-	char nombre[10];
-	char apellido[20];
-	char nomUsuario[20];
-	char contrasenya[10];
-	char contrasenyaComp[10];
-	int flag = 0;
-
-	Usuario usuario;
-
-	while (flag == 0){
-
-		printf("\nREGISTRO DE NUEVO USUARIO\n");
-		printf("============================\n");
-
-		printf("NOMBRE:  ");
-		fflush(stdout);
-		fgets(str, 10, stdin);
-		sscanf(str, "%s", &nombre);
-		strcpy(usuario.nombre, nombre);
-
-		printf("APELLIDO:  ");
-		fflush(stdout);
-		fgets(str, 40, stdin);
-		sscanf(str, "%s", &apellido);
-		strcpy(usuario.apellido, apellido);
-
-		printf("USUARIO:  ");
-		fflush(stdout);
-		fgets(str, 40, stdin);
-		sscanf(str, "%s", &nomUsuario);
-		strcpy(usuario.nomUsuario, nomUsuario);
-
-		printf("CONTRASEÑA:  ");
-		fflush(stdout);
-		fgets(str, 10, stdin);
-		sscanf(str, "%s", &contrasenya);
-
-		printf("CONFIRMACION CONTRASEÑA:  ");
-		fflush(stdout);
-		fgets(str, 10, stdin);
-		sscanf(str, "%s", &contrasenyaComp);
-
-		if (strncmp(contrasenya, contrasenyaComp) == 0){
-			strcpy(usuario.contrasenya, contrasenya);
-			flag = 1;
-			*(usuarios + posicion) = usuario;
-			printf("=========================================================================\n");
-			printf("--------------------CUENTA CREADA CORRECTAMENTE--------------------------\n\n");
-			fflush(stdout);
-
-		}else{
-			printf("\nLas contraseñas no coinciden, porfavor intentelo de nuevo\n\n");
-			fflush(stdout);
-		}
+	result = insertUsuario(db, usuario.idUsuario, usuario.nombre, usuario.apellido, usuario.nomUsuario, usuario.contrasenya);
+	if(result != SQLITE_OK)
+	{
+		printf("Error al insertar el usuario.\n");
+		printf("%s%n", sqlite3_errmsg(db));
 	}
 }
 
+void imprimirUsuario(sqlite3 *db, Usuario usuario)
+{
+	printf("ID: %i\n", usuario.idUsuario);
+	printf("NOMBRE: %s\n", usuario.nombre);
+	printf("APELLIDO: %s\n", usuario.apellido);
+	printf("NICK DEL USUARIO: %s\n", usuario.nomUsuario);
+	printf("CONTRASENA: %s\n", usuario.contrasenya);
+}
 
+void eliminarUsuario(sqlite3 *db, int result, char nom)
+{
+	result = deleteUsuario(db, nom);
+	if(result != SQLITE_OK)
+	{
+		printf("Error al eliminar el usuario.\n");
+		printf("%s\n", sqlite3_errmsg(db));
+	}
+}
+
+void eliminarTodosUsuarios(sqlite3 *db, int result)
+{
+	result = deleteAllUsuarios(db);
+	if(result != SQLITE_OK)
+	{
+		printf("Error al eliminar todos los usuarios.\n");
+		printf("%s\n", sqlite3_errmsg(db));
+	}
+}
 

@@ -1,3 +1,5 @@
+#include "../../BD/sqlite3.h"
+
 #ifndef SOCIO_H_
 #define SOCIO_H_
 
@@ -11,11 +13,10 @@ typedef struct{
 	// lista de reservas
 }Socio;
 
-//INICIO SESION//
-void visualizarSocio (Socio* socios, int tamanyo);
-int comprobarSocio (char nom [20], int dni[8],  int cp [5], Socio* socios, int tamanyo);
-
-//REGISTRARSE//
-void registrarSocio (Socio* socios, int posicion);
+void anadirSocio(sqlite3 *db, int result, Socio socio);
+void modificarSocio(sqlite3 *db, int result, int id, Socio socio);
+void imprimirSocio(sqlite3 *db, Socio socio);
+void eliminarSocio(sqlite3 *db, int result, int id);
+void eliminarTodosSocios(sqlite3 *db, int result);
 
 #endif /* SOCIO_H_ */

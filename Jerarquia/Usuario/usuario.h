@@ -1,3 +1,5 @@
+#include "../../BD/sqlite3.h"
+
 #ifndef USUARIO_H_
 #define USUARIO_H_
 
@@ -10,12 +12,14 @@ typedef struct{
 	// lista de reservas
 }Usuario;
 
-//INICIO SESION//
-void visualizarUsuario (Usuario*usuarios, int tamanyo);
-int comprobarUsuario (char name [10], char pass [10], Usuario* usuarios, int tamanyo);
-int inicioSesion(Usuario* usuarios);
+void anadirUsuario(sqlite3 *db, int result, Usuario usuario);
+void modificarUsuario(sqlite3 *db, int result, int id, Usuario usuario);
+void imprimirUsuario(sqlite3 *db, Usuario usuario);
+void eliminarUsuario(sqlite3 *db, int result, char nom);
+void eliminarTodosUsuarios(sqlite3 *db, int result);
 
-//REGISTRARSE//
+int comprobarUsuario (char usu [10], char contr [10], Usuario* usuarios, int tamanyo);
+int inicioSesion(Usuario* usuarios);
 void registrarUsuario (Usuario* usuarios, int posicion);
 
 #endif /* USUARIO_H_ */

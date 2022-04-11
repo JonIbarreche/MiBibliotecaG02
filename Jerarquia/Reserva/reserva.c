@@ -1,24 +1,69 @@
 #include "reserva.h"
+#include "../Usuario/usuario.h"
+#include "../Libro/libro.h"
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void visualizarReservas(Reserva* reservas, int tamanyo){
-	for (int i = 0; i < tamanyo ; i++){
-        printf("================================");
-        printf("----------- Reserva %i -----------", i);
-		printf("Concepto: %s", (reservas+ i)->concepto);
-		// printf("Fecha: %s", (reservas+ i)->fecha);
-		// printf("Usuario: %s", (reservas+ i)->usuario);
-		// printf("Libro: %s", (reservas+ i)->libro);
+#include "../../BD/BD.h"
+#include "../../BD/sqlite3.h"
+
+void anadirReserva(sqlite3 *db, int result, Reserva reserva)
+{
+	result = insertReserva(db, reserva.idReserva, reserva.concepto, reserva.fechaInicio, reserva.fechaFinal, reserva.usuario.nomUsuario, reserva.libro.isbn);
+	if(result != SQLITE_OK) {
+		printf("Error al insertar la reserva.\n");
+		printf("%s%n", sqlite3_errmsg(db));
 	}
-
 }
 
-void visualizarReserva2(Reserva* reserva){
-    printf("------------------------");
-    printf("Concepto: %s", reserva->concepto);
-    // printf("Fecha: %s", reserva->fecha);
-    // printf("Usuario: %s", reserva->usuario);
-    // printf("Libro: %s", reserva->libro);
+void modificarReserva(sqlite3 *db, int result, int id, Reserva reserva)
+{
+	result = deleteReservas(db, id);
+	if(result != SQLITE_OK)
+	{
+		printf("Error eliminando la reserva.\n");
+		printf("%s\n", sqlite3_errmsg(db));
+	}
+	result = insertReserva(db, reserva.idReserva, reserva.concepto, reserva.fechaInicio, reserva.fechaFinal, reserva.usuario.nomUsuario, reserva.libro.isbn);
+	if(result != SQLITE_OK)
+	{
+		printf("Error al insertar la reserva.\n");
+		printf("%s%n", sqlite3_errmsg(db));
+	}
 }
+
+void imprimirReservas(sqlite3 *db, Reserva reserva)
+{
+	printf("ID: %i\n", reserva.idReserva);
+	printf("CONCEPTO: %s\n", reserva.concepto);
+	printf("FECHA INICIO: %s\n", reserva.fechaInicio);
+	printf("FECHA FINAL: %s\n", reserva.fechaFinal);
+	printf("USUARIO: %s\n", reserva.usuario.nomUsuario);
+	printf("LIBRO: %s\n", reserva.libro.isbn);
+}
+
+void eliminarReserva(sqlite3 *db, int result, int id)
+{
+	result = deleteReservas(db, id);
+	if(result != SQLITE_OK)
+	{
+		printf("Error al eliminar la reserva.\n");
+		printf("%s\n", sqlite3_errmsg(db));
+	}
+}
+
+void eliminarTodasReservas(sqlite3 *db, int result)
+{
+	result = deleteAllReservas(db);
+	if(result != SQLITE_OK)
+	{
+		printf("Error al eliminar todos las reservas.\n");
+		printf("%s\n", sqlite3_errmsg(db));
+	}
+}
+
+
+
+

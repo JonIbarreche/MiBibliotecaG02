@@ -1,3 +1,5 @@
+#include "../../BD/sqlite3.h"
+
 #ifndef RESERVA_H_
 #define RESERVA_H_
 
@@ -18,8 +20,10 @@ typedef struct{
     Libro libro;
 }Reserva;
 
-void visualizarReservas(Reserva* reservas, int tamanyo);
-
-void visualizarReserva2(Reserva* reserva);
+void anadirReserva(sqlite3 *db, int result, Reserva reserva);
+void modificarReserva(sqlite3 *db, int result, int id, Reserva reserva);
+void imprimirReservas(sqlite3 *db, Reserva reserva);
+void eliminarReserva(sqlite3 *db, int result, int id);
+void eliminarTodasReservas(sqlite3 *db, int result);
 
 #endif

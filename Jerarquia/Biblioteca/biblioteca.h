@@ -1,3 +1,5 @@
+#include "../../BD/sqlite3.h"
+
 #ifndef BIBLIOTECA_H_
 #define BIBLIOTECA_H_
 
@@ -20,6 +22,10 @@ typedef struct{
 //	Libro libro;
 }Biblioteca;
 
-void visualizarBiblioteca (Biblioteca* bibliotecas, int tamanyo);
+void anadirBiblioteca(sqlite3 *db, int result, Biblioteca biblioteca);
+void modificarBiblioteca(sqlite3 *db, int result, int id, Biblioteca biblioteca);
+void imprimirBibliotecas(sqlite3 *db, Biblioteca biblioteca);
+void eliminarBibliotecas(sqlite3 *db, int result, int id);
+void eliminarTodasBibliotecas(sqlite3 *db, int result);
 
 #endif /* BIBLIOTECA_H_ */
