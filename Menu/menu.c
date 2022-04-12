@@ -189,14 +189,12 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 			fflush(stdin);
 			strcpy(biblioteca.aforo, str);
 
-			printf(
-					"Escriba (Formato-> xx:xx-xx:xx) de cuando a cuando esta abierta.\n");
+			printf("Escriba (Formato-> xx:xx-xx:xx) de cuando a cuando esta abierta.\n");
 			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(biblioteca.estado, str);
 
-			printf(
-					"Escriba los generos que mas resaltan en esta Biblioteca (Formato -> ../../..).\n");
+			printf("Escriba los generos que mas resaltan en esta Biblioteca (Formato -> ../../..).\n");
 			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(biblioteca.genero, str);
@@ -282,7 +280,7 @@ void gestionUsuarios(sqlite3 *db, int result) {
 			strcpy(usuario.nombre, str);
 
 			printf("Escriba el apellido del Usuario.\n");
-			scanf("%i", &str);
+			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(usuario.apellido, str);
 
@@ -304,7 +302,7 @@ void gestionUsuarios(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirUsuarios(db);
-			printf("ï¿½Que usuario quiere modificar?\n");
+			printf("¿Que usuario quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL NICK DEL USUARIO A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -313,7 +311,7 @@ void gestionUsuarios(sqlite3 *db, int result) {
 			//HAY QUE ACABAR ESTE CASE
 			break;
 		case '4':
-			printf("ï¿½Que usuario quiere eliminar?\n");
+			printf("¿Que usuario quiere eliminar?\n");
 			printf("(debe introducir el nick del usuario)");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -393,7 +391,7 @@ void gestionSocios(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirSocios(db);
-			printf("ï¿½Que socio quiere modificar?\n");
+			printf("¿Que socio quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL DNI DEL USUARIO A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -402,7 +400,7 @@ void gestionSocios(sqlite3 *db, int result) {
 			//HAY QUE ACABAR ESTE CASE
 			break;
 		case '4':
-			printf("ï¿½Que socio quiere eliminar?\n");
+			printf("¿Que socio quiere eliminar?\n");
 			printf("(debe introducir el DNI)");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -454,20 +452,17 @@ void gestionReservas(sqlite3 *db, int result) {
 			fflush(stdin);
 			strcpy(reserva.concepto, str);
 
-			printf(
-					"Escriba la fecha en el que inicia la reserva (Formato -> xx/xx/xx).\n");
-			scanf("%i", &str);
+			printf("Escriba la fecha en el que inicia la reserva (Formato -> xx/xx/xx).\n");
+			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(reserva.fechaInicio, str);
 
-			printf(
-					"Escriba la fecha fin de la reserva (Formato -> xx/xx/xx).\n");
+			printf("Escriba la fecha fin de la reserva (Formato -> xx/xx/xx).\n");
 			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(reserva.fechaFinal, str);
 
-			printf(
-					"Escriba el nick Usuario del Usuario que hara la reserva.\n");
+			printf("Escriba el nick Usuario del Usuario que hara la reserva.\n");
 			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(reserva.usuario.nomUsuario, str);
@@ -485,7 +480,7 @@ void gestionReservas(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirReserva(db);
-			printf("ï¿½Que reserva quiere modificar?\n");
+			printf("¿Que reserva quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL ID DE LA RESERVA A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -494,7 +489,7 @@ void gestionReservas(sqlite3 *db, int result) {
 			//HAY QUE ACABAR ESTE CASE
 			break;
 		case '4':
-			printf("ï¿½Que reserva quiere eliminar?\n");
+			printf("¿Que reserva quiere eliminar?\n");
 			printf("(debe introducir el ID de la reserva)");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -548,7 +543,7 @@ void gestionLibros(sqlite3 *db, int result) {
 			strcpy(libro.isbn, str);
 
 			printf("Escriba el titulo del libro.\n");
-			scanf("%i", &str);
+			scanf("%s", &str);
 			fflush(stdin);
 			strcpy(libro.titulo, str);
 
@@ -563,7 +558,7 @@ void gestionLibros(sqlite3 *db, int result) {
 			strcpy(libro.genero, str);
 
 			printf("Escriba las paginas que tiene el libro.\n");
-			scanf("%s", &str);
+			scanf("%i", &str);
 			fflush(stdin);
 			strcpy(libro.paginas, str);
 
@@ -575,7 +570,7 @@ void gestionLibros(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirLibros(db);
-			printf("ï¿½Que libro quiere modificar?\n");
+			printf("¿Que libro quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL ISBN DEL LIBRO A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -584,7 +579,7 @@ void gestionLibros(sqlite3 *db, int result) {
 			//HAY QUE ACABAR ESTE CASE
 			break;
 		case '4':
-			printf("ï¿½Que libro quiere eliminar?\n");
+			printf("¿Que libro quiere eliminar?\n");
 			printf("(debe introducir el ISBN)");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -602,13 +597,7 @@ void gestionLibros(sqlite3 *db, int result) {
 }
 
 void borrarDatos(sqlite3 *db, int result) {
-	char str[20];
-	char op, id;
-	Biblioteca biblioteca;
-	Usuario ususario;
-	Reserva reserva;
-	Socio socio;
-	Libro libro;
+	char op;
 
 	do {
 

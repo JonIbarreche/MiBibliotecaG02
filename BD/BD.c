@@ -661,7 +661,7 @@ int imprimirUsuarios(sqlite3 *db){
 			strcpy(apellido, (char *) sqlite3_column_text(stmt, 2));
 			strcpy(nomUsuario, (char *) sqlite3_column_text(stmt, 3));
 			strcpy(contrasenya, (char *) sqlite3_column_text(stmt, 4));
-			printf("Id: %d Email: %s DNI: %s Contrasenya: %s Nombre: %s Apellido: %s\n", idUsuario, nombre, apellido, nomUsuario, contrasenya);
+			printf("Id: %d Nombre: %s Apellido: %s Contrasenya: %s Nick: %s Contrasena: %s\n", idUsuario, nombre, apellido, nomUsuario, contrasenya);
 		}
 	} while (result == SQLITE_ROW);
 
@@ -715,7 +715,7 @@ int imprimirSocios(sqlite3 *db){
 			strcpy(correo, (char *) sqlite3_column_text(stmt, 3));
 			strcpy(residencia, (char *) sqlite3_column_text(stmt, 4));
 			strcpy(codigoPostal, (char *) sqlite3_column_text(stmt, 5));
-			printf("Nombre: %d Apellido: %s DNI: %s Correo: %s Residencia: %s Codigo postal: %s\n", nombre, apellido, dni, correo, residencia, codigoPostal);
+			printf("Nombre: %s Apellido: %s DNI: %d Correo: %s Residencia: %s Codigo postal: %d\n", nombre, apellido, dni, correo, residencia, codigoPostal);
 		}
 	} while (result == SQLITE_ROW);
 
