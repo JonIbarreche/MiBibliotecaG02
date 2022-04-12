@@ -20,4 +20,12 @@ int main(void)
 
 	menuPrincipal(db, result);
 
+	result = sqlite3_close(db);
+	if (result != SQLITE_OK) {
+		printf("Error closing database\n");
+		printf("%s\n", sqlite3_errmsg(db));
+	}
+
+	printf("Database closed\n");
+	return 0;
 }
