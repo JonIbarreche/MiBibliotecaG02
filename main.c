@@ -6,6 +6,8 @@
 #include "Jerarquia/Socio/socio.h"
 #include "Jerarquia/Usuario/usuario.h"
 #include "Jerarquia/Biblioteca/biblioteca.h"
+#include "Jerarquia/Libro/libro.h"
+#include "Jerarquia/Reserva/reserva.h"
 
 int main(void)
 {
