@@ -11,7 +11,7 @@ int main(void)
 {
 	sqlite3 *db;
 
-		int result = sqlite3_open("DB.db", &db);
+		int result = sqlite3_open("BD/DB.db", &db);
 		if (result != SQLITE_OK) {
 			printf("Error opening database\n");
 		}
