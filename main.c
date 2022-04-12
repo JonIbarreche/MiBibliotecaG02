@@ -34,6 +34,5 @@ int main(void)
 		printf("%s\n", sqlite3_errmsg(db));
 	}
 
-	printf("Database closed\n");
 	return 0;
 }
