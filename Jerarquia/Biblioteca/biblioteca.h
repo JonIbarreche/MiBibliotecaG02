@@ -19,7 +19,6 @@ typedef struct{
 	char genero[15];
 	char instalacion[20];
 	char barrio[15];
-//	Libro libro;
 }Biblioteca;
 
 void anadirBiblioteca(sqlite3 *db, int result, Biblioteca biblioteca);
