@@ -151,8 +151,9 @@ void menuPrincipal(sqlite3 *db, int result) {
 
 void gestionBibliotecas(sqlite3 *db, int result) {
 	char str[50];
-	char op, id;
+	char op, id, respuesta, respuestaChar;
 	Biblioteca biblioteca;
+	int respuestaInt;
 
 	do {
 
@@ -221,10 +222,88 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 			printf("(DEBE SELECCIONAR EL ID DE LA BIBLIOTECA A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
-			Biblioteca b;
-			b = getBiblioteca(db, id);
-			//HAY QUE ACABAR ESTE CASE
+			biblioteca = getBiblioteca(db, id);
+			printf("Datos de la biblioteca:\n");
+			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
+			
+			printf("Nombre: %s", biblioteca.nombre);
+			scanf("%c", &respuesta);
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo nombre\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					biblioteca.nombre = respuestaChar;
+					printf("Nombre cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Aforo: %s", biblioteca.aforo);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo aforo\n");
+					scanf("%s", &respuestaInt);
+					fflush(stdin);
+					biblioteca.aforo = respuestaInt;
+					printf("Aforo cambiado con exito\n")
+				case 'n':
+					break;
+			}
+			
+			printf("Estado: %s", biblioteca.estado);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo estado\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					biblioteca.estado = respuestaChar;
+					printf("Estado cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Genero: %s", biblioteca.genero);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo genero\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					biblioteca.genero = respuestaChar;
+					printf("Genero cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Instalacion: %s", biblioteca.instalacion);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca la nueva instalacion\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					biblioteca.instalacion = respuestaChar;
+					printf("Instalacion cambiada con exito\n")
+				case 'n':
+					break;
+			}
+
+			updateBiblioteca(db, biblioteca.nombre, biblioteca.aforo, biblioteca.estado, biblioteca.genero, biblioteca.instalacion, biblioteca.barrio);
 			break;
+
 		case '4':
 			printf("ï¿½Que biblioteca quiere eliminar?\n");
 			printf("(debe introducir el ID de la biblioteca)");
@@ -245,8 +324,9 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 
 void gestionUsuarios(sqlite3 *db, int result) {
 	char str[20];
-	char op, id;
+	char op, id, respuesta, respuestaChar;
 	Usuario usuario;
+	int respuestaInt;
 
 	do {
 
@@ -302,16 +382,78 @@ void gestionUsuarios(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirUsuarios(db);
-			printf("¿Que usuario quiere modificar?\n");
+			printf("ï¿½Que usuario quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL NICK DEL USUARIO A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
-			Usuario u;
-			u = getUsuario(db, id);
-			//HAY QUE ACABAR ESTE CASE
+			usuario = getUsuario(db, dni);
+			printf("Datos del usuario:\n");
+			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
+			
+			printf("Nombre: %s", usuario.nombre);
+			scanf("%c", &respuesta);
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo usuario\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					usuario.nombre = respuestaChar;
+					printf("Nombre cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Apellido: %s", usuario.apellido);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo apellido\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					usuario.apellido = respuestaChar;
+					printf("Apellido cambiado con exito\n")
+				case 'n':
+					break;
+			}
+			
+			printf("Nombre de usuario: %s", usuario.nomUsuario);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo nombre de usuario\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					usuario.nomUsuario = respuestaChar;
+					printf("Nombre de usuario cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Contrasenya: %s", usuario.contrasenya);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca la nueva contrasenya\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					usuario.contrasenya = respuestaChar;
+					printf("Contrasenya cambiada con exito\n")
+				case 'n':
+					break;
+			}
+
+			updateUsuario(db, usuario.nombre, usuario.apellido, usuario.nomUsuario, usuario.contrasenya);
 			break;
 		case '4':
-			printf("¿Que usuario quiere eliminar?\n");
+			printf("ï¿½Que usuario quiere eliminar?\n");
 			printf("(debe introducir el nick del usuario)");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -330,8 +472,9 @@ void gestionUsuarios(sqlite3 *db, int result) {
 
 void gestionSocios(sqlite3 *db, int result) {
 	char str[20];
-	char op, id;
+	char op, dni, respuesta, respuestaChar;
 	Socio socio;
+	int respuestaInt;
 
 	do {
 
@@ -391,21 +534,98 @@ void gestionSocios(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirSocios(db);
-			printf("¿Que socio quiere modificar?\n");
+			printf("ï¿½Que socio quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL DNI DEL USUARIO A MODIFICAR\n");
-			scanf("%c", &id);
+			scanf("%c", &dni);
 			fflush(stdin);
-			Socio s;
-			s = getSocio(db, id);
-			//HAY QUE ACABAR ESTE CASE
-			break;
-		case '4':
-			printf("¿Que socio quiere eliminar?\n");
-			printf("(debe introducir el DNI)");
-			scanf("%c", &id);
+			socio = getSocio(db, dni);
+			printf("Datos del socio:\n");
+			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
+			
+			printf("Nombre: %s", socio.nombre);
+			scanf("%c", &respuesta);
 			fflush(stdin);
 
-			eliminarSocio(db, result, id);
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo nombre\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					socio.nombre = respuestaChar;
+					printf("Nombre cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Apellido: %s", socio.apellido);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo apellido\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					socio.apellido = respuestaChar;
+					printf("Apellido cambiado con exito\n")
+				case 'n':
+					break;
+			}
+			
+			printf("Correo: %s", socio.correo);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo correo\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					socio.correo = respuestaChar;
+					printf("Correo cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Residencia: %s", socio.residencia);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca la nueva residencia\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					socio.residencia = respuestaChar;
+					printf("Residencia cambiada con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Codigo postal: %s", socio.codigoPostal);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo codigo postal\n");
+					scanf("%s", &respuestaInt);
+					fflush(stdin);
+					socio.codigoPostal = respuestaInt;
+					printf("Codigo postal cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			updateSocio(db, socio.nombre, socio.apellido, socio.DNI, socio.correo, socio.residencia, socio.codigoPostal);
+			break;
+		case '4':
+			printf("ï¿½Que socio quiere eliminar?\n");
+			printf("(debe introducir el DNI)");
+			scanf("%c", &dni);
+			fflush(stdin);
+
+			eliminarSocio(db, result, dni);
 			break;
 		case '5':
 			//Volver
@@ -419,8 +639,9 @@ void gestionSocios(sqlite3 *db, int result) {
 
 void gestionReservas(sqlite3 *db, int result) {
 	char str[20];
-	char op, id;
+	char op, id, respuesta, respuestaChar;
 	Reserva reserva;
+	int respuestaInt;
 
 	do {
 
@@ -480,16 +701,65 @@ void gestionReservas(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirReserva(db);
-			printf("¿Que reserva quiere modificar?\n");
+			printf("ï¿½Que reserva quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL ID DE LA RESERVA A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
-			Socio s;
-			s = getSocio(db, id);
-			//HAY QUE ACABAR ESTE CASE
+			reserva = getReserva(db, id);
+			printf("Datos de la reserva:\n");
+			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
+			
+			printf("Concepto: %s", reserva.concepto);
+			scanf("%c", &respuesta);
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo concepto\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					reserva.concepto = respuestaChar;
+					printf("Concepto cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Fecha inicio: %s", reserva.fechaInicio);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca la nueva fecha de inicio\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					reserva.fechaInicio = respuestaChar;
+					printf("Fecha inicio cambiada con exito\n")
+				case 'n':
+					break;
+			}
+			
+			printf("Fecha final: %s", reserva.fechaFinal);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca la nueva fecha final\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					reserva.fechaFinal = respuestaChar;
+					printf("Fecha final cambiada con exito\n")
+				case 'n':
+					break;
+			}
+
+			// FALTAN USUARIO Y LIBRO
+
+			updateReserva(db, reserva.concepto, reserva.fechaInicio, reserva.fechaFinal, reserva.nomUsuario, reserva.isbn);
 			break;
 		case '4':
-			printf("¿Que reserva quiere eliminar?\n");
+			printf("ï¿½Que reserva quiere eliminar?\n");
 			printf("(debe introducir el ID de la reserva)");
 			scanf("%c", &id);
 			fflush(stdin);
@@ -508,8 +778,9 @@ void gestionReservas(sqlite3 *db, int result) {
 
 void gestionLibros(sqlite3 *db, int result) {
 	char str[20];
-	char op, id;
+	char op, id, respuesta, respuestaChar;
 	Libro libro;
+	int respuestaInt;
 
 	do {
 
@@ -570,16 +841,93 @@ void gestionLibros(sqlite3 *db, int result) {
 			break;
 		case '3':
 			imprimirLibros(db);
-			printf("¿Que libro quiere modificar?\n");
+			printf("ï¿½Que libro quiere modificar?\n");
 			printf("(DEBE SELECCIONAR EL ISBN DEL LIBRO A MODIFICAR\n");
 			scanf("%c", &id);
 			fflush(stdin);
-			Libro l;
-			l = getLibro(db, id);
-			//HAY QUE ACABAR ESTE CASE
+			libro = getLibro(db, id);
+			printf("Datos del libro:\n");
+			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
+			
+			printf("ISBN: %s", libro.isbn);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo ISBN\n");
+					scanf("%s", &respuestaInt);
+					fflush(stdin);
+					libro.isbn = respuestaInt;
+					printf("ISBN cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Titulo: %s", libro.titulo);
+			scanf("%c", &respuesta);
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo titulo\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					libro.titulo = respuestaChar;
+					printf("Titulo cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Autor: %s", libro.autor);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo autor\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					libro.autor = respuestaChar;
+					printf("Autor cambiado con exito\n")
+				case 'n':
+					break;
+			}
+			
+			printf("Genero: %s", libro.genero);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo genero\n");
+					scanf("%s", &respuestaChar);
+					fflush(stdin);
+					libro.genero = respuestaChar;
+					printf("Genero cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			printf("Paginas: %s", libro.paginas);
+			scanf("%c", &respuesta)
+			fflush(stdin);
+
+			switch(respuesta){
+				case 's':
+					printf("Introduzca el nuevo numero de paginas\n");
+					scanf("%s", &respuestaInt);
+					fflush(stdin);
+					libro.paginas = respuestaInt;
+					printf("Numero de paginas cambiado con exito\n")
+				case 'n':
+					break;
+			}
+
+			updateLibro(db, LIBRO.isbn, LIBRO.titulo, LIBRO.autor, LIBRO.genero, libro.paginas);
 			break;
 		case '4':
-			printf("¿Que libro quiere eliminar?\n");
+			printf("ï¿½Que libro quiere eliminar?\n");
 			printf("(debe introducir el ISBN)");
 			scanf("%c", &id);
 			fflush(stdin);
