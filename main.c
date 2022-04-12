@@ -9,6 +9,14 @@
 #include "Jerarquia/Libro/libro.h"
 #include "Jerarquia/Reserva/reserva.h"
 
+void menuPrincipal(sqlite3 *db, int result);
+void gestionBibliotecas(sqlite3 *db, int result);
+void gestionUsuarios(sqlite3 *db, int result);
+void gestionSocios(sqlite3 *db, int result);
+void gestionReservas(sqlite3 *db, int result);
+void gestionLibros(sqlite3 *db, int result);
+void borrarDatos(sqlite3 *db, int result);
+
 int main(void)
 {
 	sqlite3 *db;
