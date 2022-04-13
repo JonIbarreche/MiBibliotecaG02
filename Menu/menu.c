@@ -11,82 +11,78 @@
 #include "../BD/BD.h"
 #include "../BD/sqlite3.h"
 
-int inicioAdmin(int argc, const char **argv) {
-	char p[10];
-	char usuario[10] = "admin";
-	char pass[10] = "admin";
-	int n;
+#define TECLA_ENTER 13
+#define TECLA_BACKSPACE 8
+#define LONGITUD 5
+#define MAX_INTENTOS 3
 
-	if (strcmp(usuario, argv[1]) == 0) {
-		printf("\t Usuario:\t%s\n", argv[1]);
-		printf("\t Introduzca la contrasena.\n");
-		printf("\t Contrasena:\t");
-		scanf("%s", p);
-		for (n = 0; n < 5; ++n) {
-			if (strcmp(pass, p) == 0) {
-				printf("\n\n");
-				printf("\t===============================\n");
-				printf("\t ï¿½Administrador correctamente iniciado! \ n");
-				printf("\t===============================\n");
-				printf("\n\n");
-				menuPrincipal();
+#define NUMERO_USUARIOS 1
+
+int inicioAdmin() {
+	char usuario[LONGITUD + 1];
+	char clave[LONGITUD + 1];
+	int intento = 0;
+	int ingresa = 0;
+	char caracter;
+	int i = 0;
+	int j = 0;
+
+	/* Declaración e inicialización de arreglos de usuarios y claves */
+	char usuarios[NUMERO_USUARIOS][LONGITUD + 1] = { "admin" };
+	char claves[NUMERO_USUARIOS][LONGITUD + 1] = { "admin" };
+
+	do {
+		i = 0;
+		system("cls");
+		printf("\n\t\t\tINICIO DE SESION\n");
+		printf("\t\t\t---------------\n");
+		printf("\n\tUSUARIO: ");
+		gets(usuario);
+		printf("\tCLAVE: ");
+		while (caracter = getch())
+		{
+			if (caracter == TECLA_ENTER)
+			{
+				clave[i] = '\0';
 				break;
-			}
-
-			else {
-				printf("\n\t Vuelva a introducir la contrasena!\n");
-				printf("\t Contrasena:\t");
-				scanf("%s", p);
-				if (strcmp(pass, p) == 0) {
-					printf("\n\n");
-					printf("\t===============================\n");
-					printf("\t ï¿½Administrador correctamente iniciado! \ n");
-					printf("\t===============================\n");
-					printf("\n\n");
-					break;
+			} else if (caracter == TECLA_BACKSPACE) {
+				if (i > 0)
+				{
+					i--;
+					printf("\b \b");
+				}
+			} else {
+				if (i < LONGITUD)
+				{
+					printf("*");
+					clave[i] = caracter;
+					i++;
 				}
 			}
 		}
-	}
-
-	else if (strlen(argv[1]) < 5) {
-		printf("\t Usuario:\t%s\n", argv[1]);
-	}
-
-	else if (strcmp(usuario, argv[1]) != 0) {
-		printf("\t Usuario:\t%s\n", argv[1]);
-		printf("\t Vuelva a introducir la contrasena!\n");
-	}
-	return 0;
-}
-
-int menuInicio(void) {
-	char op;
-
-	do {
-		printf("\t================================\n");
-		printf("\tGESTION DE BIBLIOTECAS DE BILBAO\n");
-		printf("\t================================\n\n");
-		printf(
-				"Bienvenido al programa de gestion de bibliotecas en Bilbao.\n\n");
-		printf("1. Iniciar sesion\n");
-		printf("2. Salir\n");
-
-		do {
-			scanf("%c\n", &op);
-			fflush(stdin);
-		} while (op < '1' || op > '2');
-
-		switch (op) {
-		case '1':
-			inicioAdmin('admin', 'admin');
-			break;
-		default:
-			printf("Valor no valido, vuelva a seleccionar una opcion");
-			break;
+		/* El usuario y clave debe coincidir con alguno de los que se encuentran en el array */
+		for (j = 0; j < NUMERO_USUARIOS; ++j)
+		{
+			if (strcmp(usuario, usuarios[j]) == 0 && strcmp(clave, claves[j]) == 0)
+			{
+				ingresa = 1;
+				break;
+			}
 		}
-	} while (op != '2');
-
+		if (ingresa == 0)
+		{
+			printf("\n\tUsuario y/o clave son incorrectos\n");
+			intento++;
+			getchar();
+		}
+	} while (intento < MAX_INTENTOS && ingresa == 0);
+	if (ingresa == 1)
+	{
+		printf("\n\n\tBienvenido al Sistema\n");
+		menuPrincipal();
+	} else {
+		printf("\n\n\tHa sobrepasado el numero maximo de intentos permitidos\n");
+	}
 	return 0;
 }
 
@@ -108,7 +104,7 @@ void menuPrincipal(sqlite3 *db, int result) {
 		do {
 			scanf("%c\n", &op);
 			fflush(stdout);
-		} while (op < '1' || op > '9');
+		} while (op < '1' || op > '8');
 
 		switch (op) {
 		case '1':
@@ -127,7 +123,11 @@ void menuPrincipal(sqlite3 *db, int result) {
 			gestionLibros(db);
 			break;
 		case '6':
-
+			printf("\t====================================\n");
+			printf("\tEsta funcion no ha sido realizada.\n");
+			printf("\t\tSentimos las molestias.\n");
+			printf("\t====================================\n");
+			menuPrincipal(db, result);
 			break;
 		case '7':
 			borrarDatos(db);
@@ -157,7 +157,7 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 
 		do {
 			scanf("%c\n", &op);
-			fflush(stdin);
+			fflush(stdout);
 		} while (op < '1' || op > '5');
 
 		switch (op) {
@@ -167,37 +167,37 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 		case '2':
 			printf("Escriba (en numero) el ID que le quiere asignar.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.idBiblioteca, str);
 
 			printf("Escriba el nombre de la Biblioteca.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.nombre, str);
 
 			printf("Escriba (en numero) el numero MAXIMO de aforo.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.aforo, str);
 
 			printf("Escriba (Formato-> xx:xx-xx:xx) de cuando a cuando esta abierta.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.estado, str);
 
 			printf("Escriba los generos que mas resaltan en esta Biblioteca (Formato -> ../../..).\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.genero, str);
 
 			printf("Escriba las instalaciones que tiene.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.instalacion, str);
 
 			printf("Escriba el nombre del barrio en el que se encuentra.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(biblioteca.barrio, str);
 
 			anadirBiblioteca(db, result, biblioteca);
@@ -211,7 +211,7 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 //			printf("ï¿½Que biblioteca quiere modificar?\n");
 //			printf("(DEBE SELECCIONAR EL ID DE LA BIBLIOTECA A MODIFICAR\n");
 //			scanf("%c", &id);
-//			fflush(stdin);
+//			fflush(stdout);
 //			biblioteca = getBiblioteca(db, id);
 //			printf("Datos de la biblioteca:\n");
 //			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
@@ -224,7 +224,7 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 //				case 's':
 //					printf("Introduzca el nuevo nombre\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					biblioteca.nombre = respuestaChar;
 //					printf("Nombre cambiado con exito\n");
 //				case 'n':
@@ -233,13 +233,13 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 //
 //			printf("Aforo: %s", biblioteca.aforo);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo aforo\n");
 //					scanf("%s", &respuestaInt);
-//					fflush(stdin);
+//					fflush(stdout);
 //					biblioteca.aforo = respuestaInt;
 //					printf("Aforo cambiado con exito\n");
 //				case 'n':
@@ -248,13 +248,13 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 //
 //			printf("Estado: %s", biblioteca.estado);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo estado\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					biblioteca.estado = respuestaChar;
 //					printf("Estado cambiado con exito\n");
 //				case 'n':
@@ -263,13 +263,13 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 //
 //			printf("Genero: %s", biblioteca.genero);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo genero\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					biblioteca.genero = respuestaChar;
 //					printf("Genero cambiado con exito\n");
 //				case 'n':
@@ -278,13 +278,13 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 //
 //			printf("Instalacion: %s", biblioteca.instalacion);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca la nueva instalacion\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					biblioteca.instalacion = respuestaChar;
 //					printf("Instalacion cambiada con exito\n");
 //				case 'n':
@@ -298,7 +298,7 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 			printf("ï¿½Que biblioteca quiere eliminar?\n");
 			printf("(debe introducir el ID de la biblioteca)");
 			scanf("%c", &id);
-			fflush(stdin);
+			fflush(stdout);
 
 			eliminarBibliotecas(db, result, id);
 			break;
@@ -330,7 +330,7 @@ void gestionUsuarios(sqlite3 *db, int result) {
 
 		do {
 			scanf("%c\n", &op);
-			fflush(stdin);
+			fflush(stdout);
 		} while (op < '1' || op > '5');
 
 		switch (op) {
@@ -341,27 +341,27 @@ void gestionUsuarios(sqlite3 *db, int result) {
 		case '2':
 			printf("Escriba (en numero) el ID que le quiere asignar.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(usuario.idUsuario, str);
 
 			printf("Escriba el nombre del Usuario.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(usuario.nombre, str);
 
 			printf("Escriba el apellido del Usuario.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(usuario.apellido, str);
 
 			printf("Escriba el nick que tendra el Usuario.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(usuario.nomUsuario, str);
 
 			printf("Escriba la contrasena que tendra el Usuario.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(usuario.contrasenya, str);
 
 			anadirUsuario(db, result, usuario);
@@ -375,20 +375,20 @@ void gestionUsuarios(sqlite3 *db, int result) {
 //			printf("ï¿½Que usuario quiere modificar?\n");
 //			printf("(DEBE SELECCIONAR EL NICK DEL USUARIO A MODIFICAR\n");
 //			scanf("%c", &id);
-//			fflush(stdin);
+//			fflush(stdout);
 //			usuario = getUsuario(db, id);
 //			printf("Datos del usuario:\n");
 //			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
 //
 //			printf("Nombre: %s", usuario.nombre);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo usuario\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					usuario.nombre = respuestaChar;
 //					printf("Nombre cambiado con exito\n");
 //				case 'n':
@@ -397,13 +397,13 @@ void gestionUsuarios(sqlite3 *db, int result) {
 //
 //			printf("Apellido: %s", usuario.apellido);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo apellido\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					usuario.apellido = respuestaChar;
 //					printf("Apellido cambiado con exito\n");
 //				case 'n':
@@ -412,13 +412,13 @@ void gestionUsuarios(sqlite3 *db, int result) {
 //
 //			printf("Nombre de usuario: %s", usuario.nomUsuario);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo nombre de usuario\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					usuario.nomUsuario = respuestaChar;
 //					printf("Nombre de usuario cambiado con exito\n");
 //				case 'n':
@@ -427,13 +427,13 @@ void gestionUsuarios(sqlite3 *db, int result) {
 //
 //			printf("Contrasenya: %s", usuario.contrasenya);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca la nueva contrasenya\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					usuario.contrasenya = respuestaChar;
 //					printf("Contrasenya cambiada con exito\n");
 //				case 'n':
@@ -446,7 +446,7 @@ void gestionUsuarios(sqlite3 *db, int result) {
 			printf("ï¿½Que usuario quiere eliminar?\n");
 			printf("(debe introducir el nick del usuario)");
 			scanf("%c", &id);
-			fflush(stdin);
+			fflush(stdout);
 
 			eliminarUsuario(db, result, id);
 			break;
@@ -478,7 +478,7 @@ void gestionSocios(sqlite3 *db, int result) {
 
 		do {
 			scanf("%c\n", &op);
-			fflush(stdin);
+			fflush(stdout);
 		} while (op < '1' || op > '5');
 
 		switch (op) {
@@ -488,32 +488,32 @@ void gestionSocios(sqlite3 *db, int result) {
 		case '2':
 			printf("Escriba el nombre del Socio.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(socio.nombre, str);
 
 			printf("Escriba el apellido del Socio.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(socio.apellido, str);
 
 			printf("Escriba el DNI del Socio.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(socio.DNI, str);
 
 			printf("Escriba el correo del Socio.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(socio.correo, str);
 
 			printf("Escriba la residencia del Socio.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(socio.residencia, str);
 
 			printf("Escriba el codigo postal del Socio.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(socio.codigoPostal, str);
 
 			anadirSocio(db, result, socio);
@@ -527,20 +527,20 @@ void gestionSocios(sqlite3 *db, int result) {
 //			printf("ï¿½Que socio quiere modificar?\n");
 //			printf("(DEBE SELECCIONAR EL DNI DEL USUARIO A MODIFICAR\n");
 //			scanf("%c", &dni);
-//			fflush(stdin);
+//			fflush(stdout);
 //			socio = getSocio(db, dni);
 //			printf("Datos del socio:\n");
 //			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
 //
 //			printf("Nombre: %s", socio.nombre);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo nombre\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					socio.nombre = respuestaChar;
 //					printf("Nombre cambiado con exito\n");
 //				case 'n':
@@ -549,13 +549,13 @@ void gestionSocios(sqlite3 *db, int result) {
 //
 //			printf("Apellido: %s", socio.apellido);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo apellido\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					socio.apellido = respuestaChar;
 //					printf("Apellido cambiado con exito\n");
 //				case 'n':
@@ -564,13 +564,13 @@ void gestionSocios(sqlite3 *db, int result) {
 //
 //			printf("DNI: %i", socio.DNI);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch (respuesta) {
 //			case 's':
 //				printf("Introduzca el nuevo DNI\n");
 //				scanf("%s", &respuestaChar);
-//				fflush(stdin);
+//				fflush(stdout);
 //				socio.DNI = respuestaChar;
 //				printf("DNI cambiado con exito\n");
 //			case 'n':
@@ -580,13 +580,13 @@ void gestionSocios(sqlite3 *db, int result) {
 //
 //			printf("Correo: %s", socio.correo);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo correo\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					socio.correo = respuestaChar;
 //					printf("Correo cambiado con exito\n");
 //				case 'n':
@@ -595,13 +595,13 @@ void gestionSocios(sqlite3 *db, int result) {
 //
 //			printf("Residencia: %s", socio.residencia);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca la nueva residencia\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					socio.residencia = respuestaChar;
 //					printf("Residencia cambiada con exito\n");
 //				case 'n':
@@ -610,13 +610,13 @@ void gestionSocios(sqlite3 *db, int result) {
 //
 //			printf("Codigo postal: %s", socio.codigoPostal);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo codigo postal\n");
 //					scanf("%s", &respuestaInt);
-//					fflush(stdin);
+//					fflush(stdout);
 //					socio.codigoPostal = respuestaInt;
 //					printf("Codigo postal cambiado con exito\n");
 //				case 'n':
@@ -629,7 +629,7 @@ void gestionSocios(sqlite3 *db, int result) {
 			printf("ï¿½Que socio quiere eliminar?\n");
 			printf("(debe introducir el DNI)");
 			scanf("%c", &dni);
-			fflush(stdin);
+			fflush(stdout);
 
 			eliminarSocio(db, result, dni);
 			break;
@@ -661,7 +661,7 @@ void gestionReservas(sqlite3 *db, int result) {
 
 		do {
 			scanf("%c\n", &op);
-			fflush(stdin);
+			fflush(stdout);
 		} while (op < '1' || op > '5');
 
 		switch (op) {
@@ -671,32 +671,32 @@ void gestionReservas(sqlite3 *db, int result) {
 		case '2':
 			printf("Escriba (en numero) el ID que le quiere asignar.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(reserva.idReserva, str);
 
 			printf("Escriba el concepto de la Reserva.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(reserva.concepto, str);
 
 			printf("Escriba la fecha en el que inicia la reserva (Formato -> xx/xx/xx).\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(reserva.fechaInicio, str);
 
 			printf("Escriba la fecha fin de la reserva (Formato -> xx/xx/xx).\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(reserva.fechaFinal, str);
 
 			printf("Escriba el nick Usuario del Usuario que hara la reserva.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(reserva.usuario.nomUsuario, str);
 
 			printf("Escriba el ISBN del libro que reservara.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(reserva.libro.isbn, str);
 
 			anadirReserva(db, result, reserva);
@@ -710,20 +710,20 @@ void gestionReservas(sqlite3 *db, int result) {
 //			printf("ï¿½Que reserva quiere modificar?\n");
 //			printf("(DEBE SELECCIONAR EL ID DE LA RESERVA A MODIFICAR\n");
 //			scanf("%c", &id);
-//			fflush(stdin);
+//			fflush(stdout);
 //			reserva = getReserva(db, id);
 //			printf("Datos de la reserva:\n");
 //			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
 //
 //			printf("Concepto: %s", reserva.concepto);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo concepto\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					reserva.concepto = respuestaChar;
 //					printf("Concepto cambiado con exito\n");
 //				case 'n':
@@ -732,13 +732,13 @@ void gestionReservas(sqlite3 *db, int result) {
 //
 //			printf("Fecha inicio: %s", reserva.fechaInicio);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca la nueva fecha de inicio\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					reserva.fechaInicio = respuestaChar;
 //					printf("Fecha inicio cambiada con exito\n");
 //				case 'n':
@@ -747,13 +747,13 @@ void gestionReservas(sqlite3 *db, int result) {
 //
 //			printf("Fecha final: %s", reserva.fechaFinal);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca la nueva fecha final\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					reserva.fechaFinal = respuestaChar;
 //					printf("Fecha final cambiada con exito\n");
 //				case 'n':
@@ -768,7 +768,7 @@ void gestionReservas(sqlite3 *db, int result) {
 			printf("ï¿½Que reserva quiere eliminar?\n");
 			printf("(debe introducir el ID de la reserva)");
 			scanf("%c", &id);
-			fflush(stdin);
+			fflush(stdout);
 
 			eliminarReserva(db, result, id);
 			break;
@@ -800,7 +800,7 @@ void gestionLibros(sqlite3 *db, int result) {
 
 		do {
 			scanf("%c\n", &op);
-			fflush(stdin);
+			fflush(stdout);
 		} while (op < '1' || op > '5');
 
 		switch (op) {
@@ -811,32 +811,32 @@ void gestionLibros(sqlite3 *db, int result) {
 		case '2':
 			printf("Escriba (en numero) el ID que le quiere asignar.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(libro.idLibro, str);
 
 			printf("Escriba el ISBN del libro.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(libro.isbn, str);
 
 			printf("Escriba el titulo del libro.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(libro.titulo, str);
 
 			printf("Escriba el autor del libro.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(libro.autor, str);
 
 			printf("Escriba el genero al cual pertenece el libro.\n");
 			scanf("%s", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(libro.genero, str);
 
 			printf("Escriba las paginas que tiene el libro.\n");
 			scanf("%i", &str);
-			fflush(stdin);
+			fflush(stdout);
 			strcpy(libro.paginas, str);
 
 			anadirLibro(db, result, libro);
@@ -850,20 +850,20 @@ void gestionLibros(sqlite3 *db, int result) {
 //			printf("ï¿½Que libro quiere modificar?\n");
 //			printf("(DEBE SELECCIONAR EL ISBN DEL LIBRO A MODIFICAR\n");
 //			scanf("%c", &id);
-//			fflush(stdin);
+//			fflush(stdout);
 //			libro = getLibro(db, id);
 //			printf("Datos del libro:\n");
 //			printf("Si quiere modificarlos escriba: s, en caso contrario: n.\n");
 //
 //			printf("ISBN: %s", libro.isbn);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo ISBN\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					libro.isbn = respuestaChar;
 //					printf("ISBN cambiado con exito\n");
 //				case 'n':
@@ -872,13 +872,13 @@ void gestionLibros(sqlite3 *db, int result) {
 //
 //			printf("Titulo: %s", libro.titulo);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo titulo\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					libro.titulo = respuestaChar;
 //					printf("Titulo cambiado con exito\n");
 //				case 'n':
@@ -887,13 +887,13 @@ void gestionLibros(sqlite3 *db, int result) {
 //
 //			printf("Autor: %s", libro.autor);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo autor\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					libro.autor = respuestaChar;
 //					printf("Autor cambiado con exito\n");
 //				case 'n':
@@ -902,13 +902,13 @@ void gestionLibros(sqlite3 *db, int result) {
 //
 //			printf("Genero: %s", libro.genero);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo genero\n");
 //					scanf("%s", &respuestaChar);
-//					fflush(stdin);
+//					fflush(stdout);
 //					libro.genero = respuestaChar;
 //					printf("Genero cambiado con exito\n");
 //				case 'n':
@@ -917,13 +917,13 @@ void gestionLibros(sqlite3 *db, int result) {
 //
 //			printf("Paginas: %s", libro.paginas);
 //			scanf("%c", &respuesta);
-//			fflush(stdin);
+//			fflush(stdout);
 //
 //			switch(respuesta){
 //				case 's':
 //					printf("Introduzca el nuevo numero de paginas\n");
 //					scanf("%s", &respuestaInt);
-//					fflush(stdin);
+//					fflush(stdout);
 //					libro.paginas = respuestaInt;
 //					printf("Numero de paginas cambiado con exito\n");
 //				case 'n':
@@ -936,7 +936,7 @@ void gestionLibros(sqlite3 *db, int result) {
 			printf("ï¿½Que libro quiere eliminar?\n");
 			printf("(debe introducir el ISBN)");
 			scanf("%c", &id);
-			fflush(stdin);
+			fflush(stdout);
 
 			eliminarLibro(db, result, id);
 			break;
@@ -966,7 +966,7 @@ void borrarDatos(sqlite3 *db, int result) {
 
 		do {
 			scanf("%c\n", &op);
-			fflush(stdin);
+			fflush(stdout);
 		} while (op < '1' || op > '6');
 
 		switch (op) {

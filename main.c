@@ -9,13 +9,13 @@
 #include "Jerarquia/Libro/libro.h"
 #include "Jerarquia/Reserva/reserva.h"
 
-void menuPrincipal(sqlite3 *db, int result);
-void gestionBibliotecas(sqlite3 *db, int result);
-void gestionUsuarios(sqlite3 *db, int result);
-void gestionSocios(sqlite3 *db, int result);
-void gestionReservas(sqlite3 *db, int result);
-void gestionLibros(sqlite3 *db, int result);
-void borrarDatos(sqlite3 *db, int result);
+//void menuPrincipal(sqlite3 *db, int result);
+//void gestionBibliotecas(sqlite3 *db, int result);
+//void gestionUsuarios(sqlite3 *db, int result);
+//void gestionSocios(sqlite3 *db, int result);
+//void gestionReservas(sqlite3 *db, int result);
+//void gestionLibros(sqlite3 *db, int result);
+//void borrarDatos(sqlite3 *db, int result);
 
 int main(void)
 {
@@ -26,7 +26,7 @@ int main(void)
 			printf("Error opening database\n");
 		}
 
-	menuPrincipal(db, result);
+		inicioAdmin();
 
 	result = sqlite3_close(db);
 	if (result != SQLITE_OK) {
