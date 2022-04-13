@@ -531,14 +531,13 @@ void menuPrincipal(sqlite3 *db, int result) {
 		printf("3. Gestionar socios\n");
 		printf("4. Gestionar reservas\n");
 		printf("5. Gestionar libros\n");
-		printf("6. Importar datos desde fichero\n");
-		printf("7. Borrar base de datos\n");
-		printf("8. Salir\n");
+		printf("6. Borrar base de datos\n");
+		printf("7. Salir\n");
 
 		do {
 			scanf("%c\n", &op);
 			fflush(stdout);
-		} while (op < '1' || op > '8');
+		} while (op < '1' || op > '7');
 
 		switch (op) {
 		case '1':
@@ -557,20 +556,13 @@ void menuPrincipal(sqlite3 *db, int result) {
 			gestionLibros(db, result);
 			break;
 		case '6':
-			printf("\t====================================\n");
-			printf("\tEsta funcion no ha sido realizada.\n");
-			printf("\t\tSentimos las molestias.\n");
-			printf("\t====================================\n");
-			menuPrincipal(db, result);
-			break;
-		case '7':
 			borrarDatos(db, result);
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
 			break;
 		}
-	} while (op != '8');
+	} while (op != '7');
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
