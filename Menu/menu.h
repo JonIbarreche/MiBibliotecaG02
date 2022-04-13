@@ -10,6 +10,7 @@ void gestionSocios(sqlite3 *db, int result);
 void gestionReservas(sqlite3 *db, int result);
 void gestionLibros(sqlite3 *db, int result);
 void borrarDatos(sqlite3 *db, int result);
+int inicioAdmin(int argc, const char **argv);
 
 
 #endif /* MENU_MENU_H_ */

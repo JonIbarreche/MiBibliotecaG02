@@ -15,7 +15,7 @@ typedef struct{
 void anadirLibro(sqlite3 *db, int result, Libro libro);
 void modificarLibro(sqlite3 *db, int result, int id, Libro libro);
 void imprimirLibro(sqlite3 *db, Libro libro);
-void eliminarLibro(sqlite3 *db, int result, int id);
+void eliminarLibro(sqlite3 *db, int result, char isbn[]);
 void eliminarTodosLibros(sqlite3 *db, int result);
 
 #endif

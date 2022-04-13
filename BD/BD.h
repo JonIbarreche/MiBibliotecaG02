@@ -15,16 +15,16 @@
 #include "sqlite3.h"
 
 int insertUsuario(sqlite3 *db, int idUsuario, char nombre[], char apellido[], char nomUsuario[], char contrasenya[]);
-int insertSocio(sqlite3 *db, char nombre[], char apellido[], int DNI, char correo[], char residencia[], int codigoPostal[]);
+int insertSocio(sqlite3 *db, char nombre[], char apellido[], int DNI, char correo[], char residencia[], int codigoPostal);
 int insertLibro(sqlite3 *db, int idLibro, char isbn[], char titulo[], char autor[], char genero[], int paginas);
 int insertBiblioteca(sqlite3 *db, int idBiblioteca, char nombre[], int aforo, char estado[], char genero[], char instalacion[], char barrio[]);
 int insertReserva(sqlite3 *db, int idReserva, char concepto[], char fechaInicio[], char fechaFinal[], char nomUsuario[], char isbn[]);
 
-int updateUsuario(sqlite3 *db, int idUsuario, char nombre[], char apellido[], char nomUsuario[], char contrasenya[]);
-int updateSocio(sqlite3 *db, char nombre[], char apellido[], int DNI, char correo[], char residencia[], int codigoPostal[]);
-int updateLibro(sqlite3 *db, int idLibro, char isbn[], char titulo[], char autor[], char genero[], int paginas);
-int updateBiblioteca(sqlite3 *db, int idBiblioteca, char nombre[], int aforo, char estado[], char genero[], char instalacion[], char barrio[]);
-int updateReserva(sqlite3 *db, int idReserva, char concepto[], char fechaInicio[], char fechaFinal[], char nomUsuario[], char isbn[]);
+//int updateUsuario(sqlite3 *db, int idUsuario, char nombre[], char apellido[], char nomUsuario[], char contrasenya[]);
+//int updateSocio(sqlite3 *db, char nombre[], char apellido[], int DNI, char correo[], char residencia[], int codigoPostal);
+//int updateLibro(sqlite3 *db, int idLibro, char isbn[], char titulo[], char autor[], char genero[], int paginas);
+//int updateBiblioteca(sqlite3 *db, int idBiblioteca, char nombre[], int aforo, char estado[], char genero[], char instalacion[], char barrio[]);
+//int updateReserva(sqlite3 *db, int idReserva, char concepto[], char fechaInicio[], char fechaFinal[], char nomUsuario[], char isbn[]);
 
 int imprimirUsuarios(sqlite3 *db);
 int imprimirSocios(sqlite3 *db);

@@ -42,9 +42,9 @@ void imprimirLibro(sqlite3 *db, Libro libro)
 	printf("PAGINAS: %i\n", libro.paginas);
 }
 
-void eliminarLibro(sqlite3 *db, int result, int id)
+void eliminarLibro(sqlite3 *db, int result, char isbn[])
 {
-	result = deleteLibros(db, id);
+	result = deleteLibros(db, isbn);
 	if(result != SQLITE_OK)
 	{
 		printf("Error al eliminar el libro.\n");
