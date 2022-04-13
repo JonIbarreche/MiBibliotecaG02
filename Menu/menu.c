@@ -27,13 +27,13 @@ int inicioAdmin() {
 	int i = 0;
 	int j = 0;
 
-	/* Declaración e inicialización de arreglos de usuarios y claves */
+	/* Declaraciï¿½n e inicializaciï¿½n de arreglos de usuarios y claves */
 	char usuarios[NUMERO_USUARIOS][LONGITUD + 1] = { "admin" };
 	char claves[NUMERO_USUARIOS][LONGITUD + 1] = { "admin" };
 
 	do {
 		i = 0;
-		system("cls");
+		//system("cls");
 		printf("\n\t\t\tINICIO DE SESION\n");
 		printf("\t\t\t---------------\n");
 		printf("\n\tUSUARIO: ");
@@ -108,19 +108,19 @@ void menuPrincipal(sqlite3 *db, int result) {
 
 		switch (op) {
 		case '1':
-			gestionBibliotecas(db);
+			gestionBibliotecas(db, result);
 			break;
 		case '2':
-			gestionUsuarios(db);
+			gestionUsuarios(db, result);
 			break;
 		case '3':
-			gestionSocios(db);
+			gestionSocios(db, result);
 			break;
 		case '4':
-			gestionReservas(db);
+			gestionReservas(db, result);
 			break;
 		case '5':
-			gestionLibros(db);
+			gestionLibros(db, result);
 			break;
 		case '6':
 			printf("\t====================================\n");
@@ -130,7 +130,7 @@ void menuPrincipal(sqlite3 *db, int result) {
 			menuPrincipal(db, result);
 			break;
 		case '7':
-			borrarDatos(db);
+			borrarDatos(db, result);
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
