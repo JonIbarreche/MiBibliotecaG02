@@ -153,10 +153,6 @@ int main(void) {
 	strcpy(r2.libro.isbn, "7723");
 
 	adminTxt(u5);
-	adminTxt(u);
-	adminTxt(u2);
-	adminTxt(u3);
-	adminTxt(u4);
 
 	sqlite3 *db;
 
