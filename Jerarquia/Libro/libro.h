@@ -3,19 +3,18 @@
 #ifndef LIBRO_H_
 #define LIBRO_H_
 
-typedef struct{
+typedef struct {
 	int idLibro;
 	char isbn[13];
 	char titulo[20];
 	char autor[20];
 	char genero[20];
 	int paginas;
-}Libro;
+} Libro;
 
 void anadirLibro(sqlite3 *db, int result, Libro libro);
-void modificarLibro(sqlite3 *db, int result, int id, Libro libro);
 void imprimirLibro(sqlite3 *db, Libro libro);
-void eliminarLibro(sqlite3 *db, int result, char isbn[]);
+void eliminarLibro(sqlite3 *db, int result, char cod[100]);
 void eliminarTodosLibros(sqlite3 *db, int result);
 
 #endif

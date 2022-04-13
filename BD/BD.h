@@ -14,17 +14,16 @@
 #include "../Jerarquia/Biblioteca/biblioteca.h"
 #include "sqlite3.h"
 
-int insertUsuario(sqlite3 *db, int idUsuario, char nombre[], char apellido[], char nomUsuario[], char contrasenya[]);
-int insertSocio(sqlite3 *db, char nombre[], char apellido[], int DNI, char correo[], char residencia[], int codigoPostal);
-int insertLibro(sqlite3 *db, int idLibro, char isbn[], char titulo[], char autor[], char genero[], int paginas);
-int insertBiblioteca(sqlite3 *db, int idBiblioteca, char nombre[], int aforo, char estado[], char genero[], char instalacion[], char barrio[]);
-int insertReserva(sqlite3 *db, int idReserva, char concepto[], char fechaInicio[], char fechaFinal[], char nomUsuario[], char isbn[]);
-
-//int updateUsuario(sqlite3 *db, int idUsuario, char nombre[], char apellido[], char nomUsuario[], char contrasenya[]);
-//int updateSocio(sqlite3 *db, char nombre[], char apellido[], int DNI, char correo[], char residencia[], int codigoPostal);
-//int updateLibro(sqlite3 *db, int idLibro, char isbn[], char titulo[], char autor[], char genero[], int paginas);
-//int updateBiblioteca(sqlite3 *db, int idBiblioteca, char nombre[], int aforo, char estado[], char genero[], char instalacion[], char barrio[]);
-//int updateReserva(sqlite3 *db, int idReserva, char concepto[], char fechaInicio[], char fechaFinal[], char nomUsuario[], char isbn[]);
+int insertUsuario(sqlite3 *db, char nombre[], char apellido[],
+		char nomUsuario[], char contrasenya[]);
+int insertSocio(sqlite3 *db, char nombre[], char apellido[], int DNI,
+		char correo[], char residencia[], int codigoPostal);
+int insertLibro(sqlite3 *db, char isbn[], char titulo[], char autor[],
+		char genero[], int paginas);
+int insertBiblioteca(sqlite3 *db, char nombre[], int aforo, char estado[],
+		char genero[], char instalacion[], char barrio[]);
+int insertReserva(sqlite3 *db, char concepto[], char fechaInicio[],
+		char fechaFinal[], char nomUsuario[], char isbn[]);
 
 int imprimirUsuarios(sqlite3 *db);
 int imprimirSocios(sqlite3 *db);
@@ -32,11 +31,11 @@ int imprimirLibros(sqlite3 *db);
 int imprimirBiblioteca(sqlite3 *db);
 int imprimirReserva(sqlite3 *db);
 
-int deleteUsuario(sqlite3 *db, char nomUsuario[]);
-int deleteSocios(sqlite3 *db, int dni);
-int deleteLibros(sqlite3 *db, char isbn[]);
-int deleteBibliotecas(sqlite3 *db, int idBiblioteca);
-int deleteReservas(sqlite3 *db, int idReserva);
+int deleteUsuario(sqlite3 *db, char cod[100]);
+int deleteSocios(sqlite3 *db, char cod[100]);
+int deleteLibros(sqlite3 *db, char cod[100]);
+int deleteBibliotecas(sqlite3 *db, char cod[100]);
+int deleteReservas(sqlite3 *db, char cod[100]);
 
 int deleteAllUsuarios(sqlite3 *db);
 int deleteAllSocios(sqlite3 *db);
@@ -44,10 +43,10 @@ int deleteAllLibros(sqlite3 *db);
 int deleteAllBibliotecas(sqlite3 *db);
 int deleteAllReservas(sqlite3 *db);
 
-Usuario getUsuario(sqlite3 *db, int idUser);
-Socio getSocio(sqlite3 *db, int dni);
-Libro getLibro(sqlite3 *db, int idLibro);
-Biblioteca getBiblioteca(sqlite3 *db, int idBiblioteca);
-Reserva getReserva(sqlite3 *db, int idReserva);
+Usuario getUsuario(sqlite3 *db, char cod[100]);
+Socio getSocio(sqlite3 *db, char cod[100]);
+Libro getLibro(sqlite3 *db, char cod[100]);
+Biblioteca getBiblioteca(sqlite3 *db, char cod[100]);
+Reserva getReserva(sqlite3 *db, char cod[100]);
 
 #endif /* BD_BD_H_ */

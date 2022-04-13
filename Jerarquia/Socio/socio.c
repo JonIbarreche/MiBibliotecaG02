@@ -7,33 +7,16 @@
 #include "../../BD/BD.h"
 #include "../../BD/sqlite3.h"
 
-void anadirSocio(sqlite3 *db, int result, Socio socio)
-{
-	result = insertSocio(db, socio.nombre, socio.apellido, socio.DNI, socio.correo, socio.residencia, socio.codigoPostal);
-	if(result != SQLITE_OK) {
+void anadirSocio(sqlite3 *db, int result, Socio socio) {
+	result = insertSocio(db, socio.nombre, socio.apellido, socio.DNI,
+			socio.correo, socio.residencia, socio.codigoPostal);
+	if (result != SQLITE_OK) {
 		printf("Error al insertar el socio.\n");
 		printf("%s%n", sqlite3_errmsg(db));
 	}
 }
 
-void modificarSocio(sqlite3 *db, int result, int id, Socio socio)
-{
-	result = deleteSocios(db, id);
-	if(result != SQLITE_OK)
-	{
-		printf("Error eliminando el socio.\n");
-		printf("%s\n", sqlite3_errmsg(db));
-	}
-	result = insertSocio(db, socio.nombre, socio.apellido, socio.DNI, socio.correo, socio.residencia, socio.codigoPostal);
-	if(result != SQLITE_OK)
-	{
-		printf("Error al insertar el socio.\n");
-		printf("%s%n", sqlite3_errmsg(db));
-	}
-}
-
-void imprimirSocio(sqlite3 *db, Socio socio)
-{
+void imprimirSocio(sqlite3 *db, Socio socio) {
 	printf("NOMNRE: %i\n", socio.nombre);
 	printf("APELLIDO: %s\n", socio.apellido);
 	printf("DNI: %s\n", socio.DNI);
@@ -42,24 +25,19 @@ void imprimirSocio(sqlite3 *db, Socio socio)
 	printf("CODIGO POSTAL: %s\n", socio.codigoPostal);
 }
 
-void eliminarSocio(sqlite3 *db, int result, int id)
-{
-	result = deleteSocios(db, id);
-	if(result != SQLITE_OK)
-	{
+void eliminarSocio(sqlite3 *db, int result, char cod[100]) {
+	result = deleteSocios(db, cod);
+	if (result != SQLITE_OK) {
 		printf("Error al eliminar el socio.\n");
 		printf("%s\n", sqlite3_errmsg(db));
 	}
 }
 
-void eliminarTodosSocios(sqlite3 *db, int result)
-{
+void eliminarTodosSocios(sqlite3 *db, int result) {
 	result = deleteAllSocios(db);
-	if(result != SQLITE_OK)
-	{
+	if (result != SQLITE_OK) {
 		printf("Error al eliminar todos los socios.\n");
 		printf("%s\n", sqlite3_errmsg(db));
 	}
 }
-
 

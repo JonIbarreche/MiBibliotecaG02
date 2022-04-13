@@ -10,20 +10,19 @@
 //    char fechaFinal[8];
 //}Fecha;
 
-typedef struct{
+typedef struct {
 	int idReserva;
 	char concepto[100];
-    //Fecha fecha;
+	//Fecha fecha;
 	char fechaInicio[8];
 	char fechaFinal[8];
-    Usuario usuario;
-    Libro libro;
-}Reserva;
+	Usuario usuario;
+	Libro libro;
+} Reserva;
 
 void anadirReserva(sqlite3 *db, int result, Reserva reserva);
-void modificarReserva(sqlite3 *db, int result, int id, Reserva reserva);
 void imprimirReservas(sqlite3 *db, Reserva reserva);
-void eliminarReserva(sqlite3 *db, int result, int id);
+void eliminarReserva(sqlite3 *db, int result, char cod[100]);
 void eliminarTodasReservas(sqlite3 *db, int result);
 
 #endif
