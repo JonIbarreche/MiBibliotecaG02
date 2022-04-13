@@ -523,7 +523,6 @@ void menuPrincipal(sqlite3 *db, int result) {
 	char op;
 
 	do {
-		system("cls");
 		printf("\n\tMENU PRINCIPAL\n");
 		printf("================================\n\n");
 		printf("1. Gestionar bibliotecas\n");
@@ -642,7 +641,7 @@ void gestionBibliotecas(sqlite3 *db, int result) {
 			eliminarBibliotecas(db, result, id);
 			break;
 		case '5':
-			//Volver
+			system("cls");
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
@@ -715,7 +714,7 @@ void gestionUsuarios(sqlite3 *db, int result) {
 			eliminarUsuario(db, result, id);
 			break;
 		case '5':
-			//Volver
+			system("cls");
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
@@ -797,7 +796,7 @@ void gestionSocios(sqlite3 *db, int result) {
 			eliminarSocio(db, result, dni);
 			break;
 		case '5':
-			//Volver
+			system("cls");
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
@@ -876,7 +875,7 @@ void gestionReservas(sqlite3 *db, int result) {
 			eliminarReserva(db, result, id);
 			break;
 		case '5':
-			//Volver
+			system("cls");
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
@@ -954,7 +953,7 @@ void gestionLibros(sqlite3 *db, int result) {
 			eliminarLibro(db, result, id);
 			break;
 		case '5':
-			//Volver
+			system("cls");
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
@@ -999,7 +998,7 @@ void borrarDatos(sqlite3 *db, int result) {
 			eliminarTodosLibros(db, result);
 			break;
 		case '6':
-			//Volver
+			system("cls");
 			break;
 		default:
 			printf("Vuelva a saleccionar una opcion");
