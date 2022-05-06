@@ -455,7 +455,7 @@ void menuModificarLibro(sqlite3 *db, int result) {
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
 
-int inicioAdmin() {
+int inicioAdmin(sqlite3 *db, int result) {
 	char usuario[LONGITUD + 1];
 	char clave[LONGITUD + 1];
 	int intento = 0;
@@ -470,7 +470,7 @@ int inicioAdmin() {
 
 	do {
 		i = 0;
-		system("cls");
+		//system("cls");
 		printf("\n\t\t\tINICIO DE SESION\n");
 		printf("\t\t\t---------------\n");
 		printf("\n\tUSUARIO: ");
@@ -509,7 +509,7 @@ int inicioAdmin() {
 	} while (intento < MAX_INTENTOS && ingresa == 0);
 	if (ingresa == 1) {
 		printf("\n\n\tBienvenido al Sistema\n\n");
-		menuPrincipal();
+		menuPrincipal(db, result);
 	} else {
 		printf(
 				"\n\n\tHa sobrepasado el numero maximo de intentos permitidos\n");
@@ -534,7 +534,9 @@ void menuPrincipal(sqlite3 *db, int result) {
 		printf("7. Salir\n");
 
 		do {
+			printf("hola %c", op);
 			scanf("%c\n", &op);
+			printf("hola2 %c", op);
 			fflush(stdout);
 		} while (op < '1' || op > '7');
 

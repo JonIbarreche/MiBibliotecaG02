@@ -10,7 +10,7 @@
 #include "../../BD/sqlite3.h"
 
 void anadirReserva(sqlite3 *db, int result, Reserva reserva) {
-	result = insertReserva(db, reserva.concepto, reserva.fechaInicio,
+	result = insertReserva(db, reserva.idReserva, reserva.concepto, reserva.fechaInicio,
 			reserva.fechaFinal, reserva.usuario.nomUsuario, reserva.libro.isbn);
 	if (result != SQLITE_OK) {
 		printf("Error al insertar la reserva.\n");

@@ -129,7 +129,7 @@ int main(void) {
 	strcpy(b2.barrio, "Erandio");
 
 	Reserva r;
-	r.idReserva = idDefaultR;
+	r.idReserva = 12;
 	strcpy(r.concepto, "Reserva Libro 1");
 	strcpy(r.fechaInicio, "14/04/22");
 	strcpy(r.fechaFinal, "14/05/22");
@@ -137,7 +137,7 @@ int main(void) {
 	strcpy(r.libro.isbn, "9923");
 
 	Reserva r1;
-	r1.idReserva = idDefaultR;
+	r1.idReserva = 2;
 	strcpy(r1.concepto, "Reserva Libro 2");
 	strcpy(r1.fechaInicio, "19/04/22");
 	strcpy(r1.fechaFinal, "19/05/22");
@@ -145,7 +145,7 @@ int main(void) {
 	strcpy(r1.libro.isbn, "8823");
 
 	Reserva r2;
-	r2.idReserva = idDefaultR;
+	r2.idReserva = 3;
 	strcpy(r2.concepto, "Reserva Libro 3");
 	strcpy(r2.fechaInicio, "25/04/22");
 	strcpy(r2.fechaFinal, "28/05/22");
@@ -162,6 +162,8 @@ int main(void) {
 	}
 
 	eliminarTodosUsuarios(db, result);
+
+
 	eliminarTodosSocios(db, result);
 	eliminarTodosLibros(db, result);
 	eliminarTodasBibliotecas(db, result);
@@ -185,9 +187,9 @@ int main(void) {
 	anadirBiblioteca(db, result, b1);
 	anadirBiblioteca(db, result, b2);
 
-	anadirReserva(db, result, r);
-	anadirReserva(db, result, r1);
-	anadirReserva(db, result, r2);
+	//anadirReserva(db, result, r);
+	//anadirReserva(db, result, r1);
+	//anadirReserva(db, result, r2);
 
 	imprimirUsuarios(db);
 	imprimirSocios(db);
@@ -195,7 +197,8 @@ int main(void) {
 	imprimirBiblioteca(db);
 	imprimirReserva(db);
 
-	inicioAdmin();
+	inicioAdmin(db, result);
+
 
 	result = sqlite3_close(db);
 	if (result != SQLITE_OK) {

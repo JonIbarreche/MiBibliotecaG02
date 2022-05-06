@@ -291,12 +291,15 @@ int insertBiblioteca(sqlite3 *db, char nombre[], int aforo, char estado[],
 	return SQLITE_OK;
 }
 
-int insertReserva(sqlite3 *db, char concepto[], char fechaInicio[],
+int insertReserva(sqlite3 *db, int id, char concepto[], char fechaInicio[],
 		char fechaFinal[], char nomUsuario[], char isbn[]) {
 	sqlite3_stmt *stmt;
 
+
+
+
 	char sql[] =
-			"insert into reserva (idReserva, concepto, fechaInicio, fechaFinal, nomUsuario, isbn) values (NULL, ?, ?, ?, ?, ?, ?)";
+			"insert into reserva (concepto, fechaInicio, fechaFinal, nomUsuario, isbn, idReserva) values (?, ?, ?, ?, ?, ?)";
 	int result = sqlite3_prepare_v2(db, sql, strlen(sql) + 1, &stmt, NULL);
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (INSERT)\n");
@@ -335,6 +338,12 @@ int insertReserva(sqlite3 *db, char concepto[], char fechaInicio[],
 		return result;
 	}
 	result = sqlite3_bind_text(stmt, 5, isbn, strlen(isbn), SQLITE_STATIC);
+	if (result != SQLITE_OK) {
+		printf("Error binding parameters\n");
+		printf("%s\n", sqlite3_errmsg(db));
+		return result;
+	}
+	result = sqlite3_bind_int(stmt, 6, id);
 	if (result != SQLITE_OK) {
 		printf("Error binding parameters\n");
 		printf("%s\n", sqlite3_errmsg(db));
@@ -839,7 +848,7 @@ int imprimirBiblioteca(sqlite3 *db) {
 	sqlite3_stmt *stmt;
 
 	char sql[] = "select * from biblioteca";
-
+	printf("adios");
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) {
 		printf("Error preparing statement (SELECT)\n");
@@ -1125,7 +1134,7 @@ int deleteReservas(sqlite3 *db, char cod[100]) {
 int deleteAllUsuarios(sqlite3 *db) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "delete * from usuario";
+	char sql[] = "delete from usuario";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) {
@@ -1158,7 +1167,7 @@ int deleteAllUsuarios(sqlite3 *db) {
 int deleteAllSocios(sqlite3 *db) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "delete * from socio";
+	char sql[] = "delete from socio";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) {
@@ -1191,7 +1200,7 @@ int deleteAllSocios(sqlite3 *db) {
 int deleteAllLibros(sqlite3 *db) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "delete * from libro";
+	char sql[] = "delete from libro";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) {
@@ -1224,7 +1233,7 @@ int deleteAllLibros(sqlite3 *db) {
 int deleteAllBibliotecas(sqlite3 *db) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "delete * from biblioteca";
+	char sql[] = "delete from biblioteca";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) {
@@ -1257,7 +1266,7 @@ int deleteAllBibliotecas(sqlite3 *db) {
 int deleteAllReservas(sqlite3 *db) {
 	sqlite3_stmt *stmt;
 
-	char sql[] = "delete * from reserva";
+	char sql[] = "delete from reserva";
 
 	int result = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
 	if (result != SQLITE_OK) {

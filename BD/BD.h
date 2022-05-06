@@ -22,7 +22,7 @@ int insertLibro(sqlite3 *db, char isbn[], char titulo[], char autor[],
 		char genero[], int paginas);
 int insertBiblioteca(sqlite3 *db, char nombre[], int aforo, char estado[],
 		char genero[], char instalacion[], char barrio[]);
-int insertReserva(sqlite3 *db, char concepto[], char fechaInicio[],
+int insertReserva(sqlite3 *db, int id, char concepto[], char fechaInicio[],
 		char fechaFinal[], char nomUsuario[], char isbn[]);
 
 int imprimirUsuarios(sqlite3 *db);
